@@ -53,9 +53,13 @@
 			      </td>
 			      <td>{{ $order->created_at->format('Y-m-d') }}</td>
 			      <td><strong>{{ $order['order_details']['quantity'] * $order['order_details']['price'] }}</strong></td>	
-			      <td>
-			      	@if($order->status == "CREATED")
-			      		<a href="{{ route('order.show', $order) }}">details</a>
+			      <td>			      	
+			      	<a href="{{ route('order.show', $order) }}">details</a>
+			      	@if($order->status == "CREATED")			      	
+			      	| <a class="btn btn-sm btn-danger" href="{{ $order->payment_response['placetopay']['respondeUrl'] }}">go to pay</a>
+			      	@endif
+			      	@if($order->status == "REJECTED")			      	
+			      	| <a class="btn btn-sm btn-info" href="{{ route('product.show', $order['order_details']['id']) }}">retry</a>
 			      	@endif
 			      </td>		      
 			    </tr>			    
